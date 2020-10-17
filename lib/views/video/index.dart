@@ -4,7 +4,7 @@ import 'package:wakelock/wakelock.dart';
 import 'dart:convert' as convert;
 import 'package:share_extend/share_extend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
+import 'package:fijkplayer/fijkplayer.dart';
 // config
 import '../../utils/config.dart' show appName, hostUrl;
 // utils
@@ -733,16 +733,11 @@ class ChewiePlayer extends StatefulWidget {
 class _ChewiePlayerState extends State<ChewiePlayer> {
   final String url;
   final String videoName;
-  IjkMediaController controller;
+  final FijkPlayer player = FijkPlayer();
   _ChewiePlayerState(this.url, this.videoName);
 
   _initState() {
-    controller = IjkMediaController();
-    controller
-      ..setDataSource(
-        DataSource.network(url),
-        autoPlay: true,
-      );
+    player.setDataSource(url, autoPlay: true);
     Wakelock.enable();
   }
 
@@ -755,17 +750,18 @@ class _ChewiePlayerState extends State<ChewiePlayer> {
   @override
   void dispose() {
     Wakelock.disable();
-    controller.dispose();
+    player.release();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 240,
-      child: IjkPlayer(
-        mediaController: controller,
-      ),
+    return FijkView(
+      height: 200,
+      width: double.infinity,
+      fit: FijkFit.cover,
+      color: Colors.black,
+      player: player,
     );
   }
 }
