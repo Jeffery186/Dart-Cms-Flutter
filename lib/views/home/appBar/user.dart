@@ -169,6 +169,9 @@ class _UserState extends State<User> {
               item["_id"],
               false,
               history: playFocus,
+              callback: () {
+                _setHistory();
+              },
             );
           },
           child: Column(

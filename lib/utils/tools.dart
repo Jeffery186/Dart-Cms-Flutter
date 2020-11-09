@@ -4,8 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../utils/loading.dart' as Loading;
 // api
 import '../utils/api.dart' show GetCurVideoDetill;
-// schema
-import '../components/publicMovieGroup.dart' show VideoSchema;
 
 // ToastGravity => 位置映射
 Map<String, ToastGravity> ToastAlign = {
@@ -37,6 +35,7 @@ Future<void> getVideoDetail(
   String vid,
   bool isPop, {
   Map history,
+  Function callback,
 }) async {
   // loading
   Loading.showLoading(context);
@@ -59,7 +58,14 @@ Future<void> getVideoDetail(
         Navigator.of(context).pop();
       }
 
-      Navigator.pushNamed(context, '/video', arguments: args);
+      Future popResult =
+          Navigator.pushNamed(context, '/video', arguments: args);
+      // is allow callback
+      popResult.then((value) {
+        if (callback != null) {
+          callback();
+        }
+      });
     },
     vid,
     error: (msg) {
