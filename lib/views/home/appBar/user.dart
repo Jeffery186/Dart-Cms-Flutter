@@ -303,9 +303,11 @@ class _UserState extends State<User> {
                   '历史记录',
                   tip: '更多',
                   tipStyle: TextStyle(color: Colors.red),
-                  tapEvent: () {
+                  tapEvent: () async {
                     // 进入历史记录管理页面
-                    Navigator.pushNamed(context, '/history', arguments: {});
+                    await Navigator.pushNamed(context, '/history',
+                        arguments: {});
+                    await _setHistory();
                   },
                 ),
                 Divider(height: 1),

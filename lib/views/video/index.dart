@@ -4,7 +4,7 @@ import 'package:wakelock/wakelock.dart';
 import 'dart:convert' as convert;
 import 'package:share_extend/share_extend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:fijkplayer/fijkplayer.dart';
+import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
 // config
 import '../../utils/config.dart' show appName, hostUrl;
 // utils
@@ -522,13 +522,16 @@ class _VideoState extends State<Video> with TickerProviderStateMixin {
             children: sourceList.length > 0
                 ? _createPlayBox()
                 : [
-                    Divider(height: 1),
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Center(
-                        child: Text(
-                          '暂无播放源',
-                          style: TextStyle(fontSize: 18, color: Colors.red),
+                    Container(
+                      alignment: Alignment.center,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Center(
+                          child: Text(
+                            '暂无播放源',
+                            style: TextStyle(fontSize: 18, color: Colors.red),
+                          ),
                         ),
                       ),
                     )
@@ -733,11 +736,11 @@ class ChewiePlayer extends StatefulWidget {
 class _ChewiePlayerState extends State<ChewiePlayer> {
   final String url;
   final String videoName;
-  final FijkPlayer player = FijkPlayer();
+  IjkMediaController controller = IjkMediaController();
   _ChewiePlayerState(this.url, this.videoName);
 
-  _initState() {
-    player.setDataSource(url, autoPlay: true);
+  _initState() async {
+    await controller.setNetworkDataSource(url, autoPlay: true);
     Wakelock.enable();
   }
 
@@ -750,18 +753,17 @@ class _ChewiePlayerState extends State<ChewiePlayer> {
   @override
   void dispose() {
     Wakelock.disable();
-    player.release();
     super.dispose();
+    controller.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FijkView(
-      height: 200,
-      width: double.infinity,
-      fit: FijkFit.cover,
-      color: Colors.black,
-      player: player,
+    return Container(
+      height: 280,
+      child: IjkPlayer(
+        mediaController: controller,
+      ),
     );
   }
 }

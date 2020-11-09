@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:transparent_image/transparent_image.dart';
 // conponents
 import '../../../components/searchBar.dart';
 import '../../../components/publicMovieGroup.dart' show layoutGroupMovieCard;
@@ -145,13 +144,13 @@ class _HomeBodyState extends State<HomeBody>
   // 当前页的objectID
   String _path;
   // 是否开启轮播图
-  bool _isOpenSwiper = false;
+  bool isOpenSwiper = false;
   // 轮播图
-  List _swiperItems = <NavInfoSchemaValueSwiperList>[];
+  List swiperItems = <NavInfoSchemaValueSwiperList>[];
   // 一组内容
-  List _contextItems = <NavInfoSchemaValueTabList>[];
+  List contextItems = <NavInfoSchemaValueTabList>[];
   // 《带带大师兄》要吃饭的嘛
-  List _mealItems = <NavInfoSchemaValueMealList>[];
+  List mealItems = <NavInfoSchemaValueMealList>[];
   // 是否已经初始化
   bool isInit = false;
   _HomeBodyState(this._path);
@@ -159,11 +158,11 @@ class _HomeBodyState extends State<HomeBody>
   void _pullData() async {
     await GetCurNavData((data) {
       if (mounted) {
-        this.setState(() {
-          _swiperItems = data.value.swiperList;
-          _isOpenSwiper = data.value.isOpenSwiper;
-          _contextItems = data.value.tabList;
-          _mealItems = data.value.mealList;
+        setState(() {
+          swiperItems = data.value.swiperList;
+          isOpenSwiper = data.value.isOpenSwiper;
+          contextItems = data.value.tabList;
+          mealItems = data.value.mealList;
           isInit = true;
         });
       }
@@ -199,9 +198,9 @@ class _HomeBodyState extends State<HomeBody>
                 child: Column(
                   children: <Widget>[
                     // 轮播图
-                    SwiperCard(_swiperItems),
+                    SwiperCard(swiperItems),
                     // 卡片组
-                    CardGroup(_contextItems),
+                    CardGroup(contextItems),
                   ],
                 ),
               ),
@@ -222,23 +221,20 @@ class SwiperCard extends StatefulWidget {
   SwiperCard(this._data, {Key key}) : super(key: key);
 
   @override
-  _SwiperCardState createState() => _SwiperCardState(_data);
+  _SwiperCardState createState() => _SwiperCardState();
 }
 
 class _SwiperCardState extends State<SwiperCard>
     with AutomaticKeepAliveClientMixin {
-  List _data = <NavInfoSchemaValueSwiperList>[];
-  _SwiperCardState(this._data);
-
   @override
   Widget build(BuildContext context) {
-    return _data.length > 0
+    return widget._data.length > 0
         ? Container(
             height: 160,
             child: new Swiper(
               autoplay: true,
               itemBuilder: (BuildContext context, int index) {
-                String curPoster = _data[index].poster;
+                String curPoster = widget._data[index].poster;
                 String resultImg = curPoster.startsWith('http')
                     ? curPoster
                     : hostUrl + curPoster;
@@ -250,9 +246,9 @@ class _SwiperCardState extends State<SwiperCard>
               },
               onTap: (index) async {
                 // 获取视频数据，
-                await getVideoDetail(context, _data[index].Id, false);
+                await getVideoDetail(context, widget._data[index].Id, false);
               },
-              itemCount: _data.length,
+              itemCount: widget._data.length,
               pagination: new SwiperPagination(),
             ),
           )
@@ -269,17 +265,14 @@ class CardGroup extends StatefulWidget {
   CardGroup(this._items, {Key key}) : super(key: key);
 
   @override
-  _CardGroupState createState() => _CardGroupState(_items);
+  _CardGroupState createState() => _CardGroupState();
 }
 
 class _CardGroupState extends State<CardGroup>
     with AutomaticKeepAliveClientMixin {
-  List _items = <NavInfoSchemaValueTabList>[];
-  _CardGroupState(this._items);
-
   List<Widget> _buildWidget(BuildContext context) {
     List _cardList = <Widget>[];
-    _cardList = _items.map((curItem) {
+    _cardList = widget._items.map((curItem) {
       // layout布局
       return curItem.list.length > 0
           ? layoutGroupMovieCard(

@@ -99,13 +99,6 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
     source: hosted
     version: "3.0.9"
-  fijkplayer:
-    dependency: "direct main"
-    description:
-      name: fijkplayer
-      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
-    source: hosted
-    version: "0.8.7"
   file:
     dependency: transitive
     description:
@@ -125,6 +118,13 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
     source: hosted
     version: "1.0.0"
+  flutter_ijkplayer:
+    dependency: "direct main"
+    description:
+      name: flutter_ijkplayer
+      url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
+    source: hosted
+    version: "0.3.5+1"
   flutter_page_indicator:
     dependency: transitive
     description:
