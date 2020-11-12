@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:wakelock/wakelock.dart';
-import 'package:wakelock/wakelock.dart';
 import 'dart:convert' as convert;
 import 'package:share_extend/share_extend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 // config
 import '../../utils/config.dart' show appName, hostUrl;
 // utils
@@ -19,6 +19,8 @@ import '../../schema/video-detill-schema.dart'
 // components
 import '../../components/publicMeal.dart' show createMealList;
 import '../../components/publicMovieGroup.dart' show layoutGroupMovieCard;
+// 自定义播放器样式
+import '../../widget/custom_player.dart';
 
 // 存下根组件context
 BuildContext curContext;
@@ -737,11 +739,29 @@ class _ChewiePlayerState extends State<ChewiePlayer> {
   final String url;
   final String videoName;
   IjkMediaController controller = IjkMediaController();
+  CustomIJKControllerWidget cusController;
   _ChewiePlayerState(this.url, this.videoName);
 
-  _initState() async {
-    await controller.setNetworkDataSource(url, autoPlay: true);
+  initPlayer() async {
+    await controller.setNetworkDataSource(
+      url,
+      autoPlay: true,
+    );
+  }
+
+  _initState() {
     Wakelock.enable();
+    cusController = CustomIJKControllerWidget(
+      controller: controller,
+      // fullscreenControllerWidgetBuilder: (IJKControllerWidgetBuilder) {
+      //   return Container(
+      //     color: Colors.red,
+      //     child: Text('ccc'),
+      //   );
+      // },
+    );
+    // 初始化
+    initPlayer();
   }
 
   @override
@@ -757,12 +777,46 @@ class _ChewiePlayerState extends State<ChewiePlayer> {
     controller.dispose();
   }
 
+  Widget buildIjkPlayer() {
+    return AspectRatio(
+      aspectRatio: 16.0 / 9.0, // 宽高比
+      child: Container(
+        child: IjkPlayer(
+          mediaController: controller,
+          controllerWidgetBuilder: (mediaController) {
+            return cusController; // 自定义
+          },
+          statusWidgetBuilder: _buildStatusWidget,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatusWidget(
+    BuildContext context,
+    IjkMediaController controller,
+    IjkStatus status,
+  ) {
+    if (status == IjkStatus.prepared) {
+      return Center(
+        child: CircularProgressIndicator(
+          strokeWidth: 1.4,
+        ),
+      );
+    }
+
+    // you can custom your self status widget
+    return IjkStatusWidget.buildStatusWidget(context, controller, status);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 280,
-      child: IjkPlayer(
-        mediaController: controller,
+      child: Observer(
+        builder: (_) {
+          return buildIjkPlayer();
+        },
       ),
     );
   }
