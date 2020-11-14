@@ -1,10 +1,10 @@
+import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:wakelock/wakelock.dart';
 import 'dart:convert' as convert;
 import 'package:share_extend/share_extend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_ijkplayer/flutter_ijkplayer.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 // config
 import '../../utils/config.dart' show appName, hostUrl;
 // utils
@@ -19,8 +19,8 @@ import '../../schema/video-detill-schema.dart'
 // components
 import '../../components/publicMeal.dart' show createMealList;
 import '../../components/publicMovieGroup.dart' show layoutGroupMovieCard;
-// 自定义播放器样式
-import '../../widget/custom_player.dart';
+// fijkplayer custom_panel
+import '../../widget/custom_panel.dart';
 
 // 存下根组件context
 BuildContext curContext;
@@ -728,38 +728,27 @@ class _VideoState extends State<Video> with TickerProviderStateMixin {
 class ChewiePlayer extends StatefulWidget {
   final String url;
   final String videoName;
-  final UniqueKey newKey;
-  ChewiePlayer(this.url, this.videoName, this.newKey) : super(key: newKey);
+  final UniqueKey uniqueKey;
+  ChewiePlayer(this.url, this.videoName, this.uniqueKey)
+      : super(key: uniqueKey);
 
   @override
-  _ChewiePlayerState createState() => _ChewiePlayerState(url, videoName);
+  _ChewiePlayerState createState() => _ChewiePlayerState();
 }
 
 class _ChewiePlayerState extends State<ChewiePlayer> {
-  final String url;
-  final String videoName;
-  IjkMediaController controller = IjkMediaController();
-  CustomIJKControllerWidget cusController;
-  _ChewiePlayerState(this.url, this.videoName);
+  // final String url;
+  // final String videoName;
+  final FijkPlayer player = FijkPlayer();
+  // _ChewiePlayerState(this.url, this.videoName);
 
   initPlayer() async {
-    await controller.setNetworkDataSource(
-      url,
-      autoPlay: true,
-    );
+    await player.reset();
+    await player.setDataSource(widget.url, autoPlay: true);
   }
 
   _initState() {
     Wakelock.enable();
-    cusController = CustomIJKControllerWidget(
-      controller: controller,
-      // fullscreenControllerWidgetBuilder: (IJKControllerWidgetBuilder) {
-      //   return Container(
-      //     color: Colors.red,
-      //     child: Text('ccc'),
-      //   );
-      // },
-    );
     // 初始化
     initPlayer();
   }
@@ -774,50 +763,33 @@ class _ChewiePlayerState extends State<ChewiePlayer> {
   void dispose() {
     Wakelock.disable();
     super.dispose();
-    controller.dispose();
-  }
-
-  Widget buildIjkPlayer() {
-    return AspectRatio(
-      aspectRatio: 16.0 / 9.0, // 宽高比
-      child: Container(
-        child: IjkPlayer(
-          mediaController: controller,
-          controllerWidgetBuilder: (mediaController) {
-            return cusController; // 自定义
-          },
-          statusWidgetBuilder: _buildStatusWidget,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildStatusWidget(
-    BuildContext context,
-    IjkMediaController controller,
-    IjkStatus status,
-  ) {
-    if (status == IjkStatus.prepared) {
-      return Center(
-        child: CircularProgressIndicator(
-          strokeWidth: 1.4,
-        ),
-      );
-    }
-
-    // you can custom your self status widget
-    return IjkStatusWidget.buildStatusWidget(context, controller, status);
+    player.stop();
+    player.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 280,
-      child: Observer(
-        builder: (_) {
-          return buildIjkPlayer();
-        },
-      ),
+    return FijkView(
+      height: 240,
+      color: Colors.black,
+      fit: FijkFit.cover,
+      player: player,
+      panelBuilder: (
+        FijkPlayer player,
+        FijkData data,
+        BuildContext context,
+        Size viewSize,
+        Rect texturePos,
+      ) {
+        /// 使用自定义的布局
+        return CustomFijkPanel(
+          player: player,
+          buildContext: context,
+          viewSize: viewSize,
+          texturePos: texturePos,
+          playerTitle: widget.videoName,
+        );
+      },
     );
   }
 }
