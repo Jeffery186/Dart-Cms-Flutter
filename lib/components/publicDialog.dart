@@ -39,6 +39,7 @@ Widget createPubDialog({
     ),
     content: Container(
       height: 170,
+      width: 200,
       child: Column(
         children: <Widget>[
           SizedBox(height: 10),

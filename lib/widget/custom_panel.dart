@@ -46,10 +46,18 @@ class _CustomFijkPanelState extends State<CustomFijkPanel> {
   Duration _duration = Duration();
   Duration _currentPos = Duration();
   Duration _bufferPos = Duration();
+  // 滑动后值
+  Duration _dargPos = Duration();
+
+  bool _isTouch = false;
 
   bool _playing = false;
   bool _prepared = false;
   String _exception;
+
+  num startPosX = null;
+  num startPosY = null;
+  Size playerBoxSize;
 
   // bool _buffering = false;
 
@@ -94,6 +102,38 @@ class _CustomFijkPanelState extends State<CustomFijkPanel> {
       });
     });
   }
+
+// +++++++++++++++++++++++++++++++++++++++++++
+
+  _onHorizontalDragStart(detills) {
+    startPosX = detills.globalPosition.dx;
+  }
+
+  _onHorizontalDragUpdate(detills) {
+    _isTouch = true;
+    num curXpost = detills.globalPosition.dx;
+    //
+    if (curXpost < 0) {
+      return null;
+    }
+    //
+    double dragRange = (curXpost - startPosX) + _currentPos.inSeconds;
+    if (dragRange < 0) {
+      dragRange = 0;
+    }
+    int lastSecond = _duration.inSeconds;
+    if (dragRange > lastSecond) {
+      dragRange = lastSecond.toDouble();
+    }
+    _dargPos = Duration(seconds: dragRange.toInt());
+  }
+
+  _onHorizontalDragEnd(detills) {
+    player.seekTo(_dargPos.inMilliseconds);
+    _isTouch = false;
+  }
+
+// +++++++++++++++++++++++++++++++++++++++++++
 
   void _playerValueChanged() {
     FijkValue value = player.value;
@@ -194,7 +234,7 @@ class _CustomFijkPanelState extends State<CustomFijkPanel> {
           gradient: const LinearGradient(
             begin: Alignment.topRight,
             colors: [
-              Color.fromRGBO(0, 0, 0, 0.05),
+              Color.fromRGBO(0, 0, 0, 0),
               Color.fromRGBO(0, 0, 0, 0.7),
             ],
           ),
@@ -296,7 +336,7 @@ class _CustomFijkPanelState extends State<CustomFijkPanel> {
             begin: Alignment.topRight,
             colors: [
               Color.fromRGBO(0, 0, 0, 0.7),
-              Color.fromRGBO(0, 0, 0, 0.05),
+              Color.fromRGBO(0, 0, 0, 0),
             ],
           ),
         ),
@@ -342,23 +382,6 @@ class _CustomFijkPanelState extends State<CustomFijkPanel> {
     );
   }
 
-  // 锁定按钮
-  Widget _buildLockButton() {
-    IconData lockIcon = _lockStuff ? Icons.lock_open : Icons.lock;
-
-    return IconButton(
-      icon: Icon(lockIcon),
-      iconSize: 30,
-      color: Colors.white60,
-      padding: EdgeInsets.only(
-        left: 20.0,
-      ),
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      onPressed: _changePlayerLockState,
-    );
-  }
-
   // 居中播放按钮
   Widget _buildCenterPlayBtn() {
     return Container(
@@ -379,7 +402,7 @@ class _CustomFijkPanelState extends State<CustomFijkPanel> {
                     opacity: _hideStuff ? 0.0 : 0.7,
                     duration: Duration(milliseconds: 400),
                     child: IconButton(
-                        iconSize: barHeight * 1.5,
+                        iconSize: barHeight * 1.2,
                         icon: Icon(_playing ? Icons.pause : Icons.play_arrow,
                             color: Colors.white),
                         padding: EdgeInsets.only(left: 10.0, right: 10.0),
@@ -416,6 +439,10 @@ class _CustomFijkPanelState extends State<CustomFijkPanel> {
         rect: rect,
         child: GestureDetector(
           onTap: _cancelAndRestartTimer,
+          behavior: HitTestBehavior.opaque,
+          onHorizontalDragStart: _onHorizontalDragStart,
+          onHorizontalDragUpdate: _onHorizontalDragUpdate,
+          onHorizontalDragEnd: _onHorizontalDragEnd,
           child: AbsorbPointer(
             absorbing: _hideStuff && _lockStuff,
             child: Column(
@@ -428,28 +455,48 @@ class _CustomFijkPanelState extends State<CustomFijkPanel> {
                     onTap: () {
                       _cancelAndRestartTimer();
                     },
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        // 播放器锁定按钮
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: _buildLockButton(),
+                    child: Container(
+                      child: Stack(
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // 显示快进时间的块
+                                _isTouch
+                                    ? Container(
+                                        height: 40,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5),
+                                          ),
+                                          color: Color.fromRGBO(0, 0, 0, 0.8),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 10, right: 10),
+                                          child: Text(
+                                            '${_duration2String(_dargPos)}/${_duration2String(_duration)}',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      )
+                                    : Container()
+                              ],
+                            ),
                           ),
-                        ),
-                        // 居中 - 播放按钮
-                        Expanded(
-                          flex: 1,
-                          child: _buildCenterPlayBtn(),
-                        ),
-                        // 占位
-                        Expanded(
-                          flex: 1,
-                          child: Container(height: 1),
-                        ),
-                      ],
+                          // 中间按钮
+                          Align(
+                            alignment: Alignment.center,
+                            child: _buildCenterPlayBtn(),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

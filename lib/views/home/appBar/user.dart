@@ -9,7 +9,7 @@ import '../../../utils/config.dart' show appName, hostUrl, appUniqueKey;
 import '../../../schema/nav-info-schema.dart'
     show NavInfoSchemaValueTabListList;
 // 缓存
-import '../../../utils/cache.dart' show Cache;
+import '../../../utils/cache.dart';
 // utils
 import '../../../utils/tools.dart' show publicToast;
 // components
@@ -106,17 +106,16 @@ class _UserState extends State<User> {
 
   // 清除缓存
   void _clearCache() async {
-    await Cache.clearCache(cb: () {
+    clearCache(cb: () {
       publicToast('缓存清除成功');
     });
   }
 
   // 计算缓存大小
   Future<void> _getCacheSize() async {
-    dynamic futrueCache = await Cache.loadCache();
-    String cacheSize = futrueCache.toString();
+    String futrueCache = await loadCache();
     this.setState(() {
-      this.cacheSize = cacheSize;
+      this.cacheSize = futrueCache;
     });
   }
 
