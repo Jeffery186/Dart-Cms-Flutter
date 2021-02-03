@@ -10,7 +10,7 @@
     <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-2.png" />
     <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-3.png" />
     <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-4.png" />
-    <img src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-5.png" />
+    <img style=" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/fijkplayer_skin-1.png" />
 </p>
 
 ## Dart-Cms-Manage（后台）
