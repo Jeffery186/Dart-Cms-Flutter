@@ -20,7 +20,7 @@ import '../../schema/video-detill-schema.dart'
 import '../../components/publicMeal.dart' show createMealList;
 import '../../components/publicMovieGroup.dart' show layoutGroupMovieCard;
 // fijkplayer custom_panel
-import '../../widget/custom_panel.dart';
+import 'package:fijkplayer_skin/fijkplayer_skin.dart';
 
 // 存下根组件context
 BuildContext curContext;
@@ -787,6 +787,7 @@ class _ChewiePlayerState extends State<ChewiePlayer> {
           buildContext: context,
           viewSize: viewSize,
           texturePos: texturePos,
+          showTopCon: true,
           playerTitle: widget.videoName,
         );
       },

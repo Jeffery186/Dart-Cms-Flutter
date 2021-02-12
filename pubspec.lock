@@ -204,6 +204,15 @@ packages:
       url: "https://mirrors.tuna.tsinghua.edu.cn/dart-pub"
     source: hosted
     version: "0.8.7"
+  fijkplayer_skin:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "58fbc71a43cc8758a945c39906a600777efeebef"
+      url: "git@github.com:abcd498936590/fijkplayer_skin.git"
+    source: git
+    version: "1.0.2"
   file:
     dependency: transitive
     description:
