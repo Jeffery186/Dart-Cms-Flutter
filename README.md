@@ -1,6 +1,13 @@
 # Dart-Cms-Flutter
 这是一个使用flutter技术开发的Dart-Cms的安卓客户端
 
+## 其他开源项目
+
+* [Dart-Cms](https://github.com/abcd498936590/Dart-Cms-Flutter)  =>> Dart-Cms完整项目
+* [Dart-Cms-Manage](https://github.com/abcd498936590/Dart-Cms-Manage)   =>> Dart-Cms后台管理系统页面部分
+* [Dart-CMS-Script](https://github.com/abcd498936590/Dart-Cms-Script)  =>> Dart-Cms插件教程，插件使用，插件开发
+* [flutter fijkplayer](https://github.com/abcd498936590/fijkplayer_skin)  =>> Flutter fijkplayer的一款皮肤
+
 ## 免责申明
 > 本项目仅供学习参考，请勿用于任何商业、非法用途。由此带来的法律责任，本人概不承担！
 
