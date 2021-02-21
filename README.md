@@ -20,15 +20,6 @@
     <img src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/fijkplayer_skin-1.png" />
 </p>
 
-## Dart-Cms-Manage（后台）
-
-[后台管理系统部分(使用vue全家桶)](https://github.com/abcd498936590/Dart-Cms-Manage)
-
-## Dart-Cms（完整项目）
-
-[完整Dart-Cms项目](https://github.com/abcd498936590/Dart-Cms)
-
-
 ## 项目结构
 
 ``` bash
