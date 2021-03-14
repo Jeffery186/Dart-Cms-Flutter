@@ -1,11 +1,11 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
-import '../utils/tools.dart' show publicToast, ToastAlign;
+
 import './config.dart' show hostUrl;
+import '../utils/tools.dart' show publicToast, ToastAlign;
 
 class BaseUrl {
-  static const int connectTimeout = 10000;
-  static const int receiveTimeout = 3000;
+  static const int connectTimeout = 30000;
+  static const int receiveTimeout = 30000;
 }
 
 class HttpUtil {
