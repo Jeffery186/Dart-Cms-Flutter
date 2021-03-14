@@ -1,6 +1,14 @@
 # Dart-Cms-Flutter
 这是一个使用flutter技术开发的Dart-Cms的安卓客户端
 
+## 其他开源项目
+
+* [Dart-Cms](https://github.com/abcd498936590/Dart-Cms)  =>> Dart-Cms完整项目
+* [Dart-Cms-Manage](https://github.com/abcd498936590/Dart-Cms-Manage)   =>> Dart-Cms后台管理系统页面部分
+* [Dart-Cms-Script](https://github.com/abcd498936590/Dart-Cms-Script)  =>> Dart-Cms插件教程，插件使用，插件开发
+* [flutter fijkplayer](https://github.com/abcd498936590/fijkplayer_skin)  =>> Flutter fijkplayer的一款皮肤
+* [electron-audio-create](https://github.com/abcd498936590/electron-audio-create)  =>> 使用 React + Electron 开发的 AI 配音软件
+
 ## 免责申明
 > 本项目仅供学习参考，请勿用于任何商业、非法用途。由此带来的法律责任，本人概不承担！
 
@@ -12,15 +20,6 @@
     <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-4.png" />
     <img src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/fijkplayer_skin-1.png" />
 </p>
-
-## Dart-Cms-Manage（后台）
-
-[后台管理系统部分(使用vue全家桶)](https://github.com/abcd498936590/Dart-Cms-Manage)
-
-## Dart-Cms（完整项目）
-
-[完整Dart-Cms项目](https://github.com/abcd498936590/Dart-Cms)
-
 
 ## 项目结构
 
