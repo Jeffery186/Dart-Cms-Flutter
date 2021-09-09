@@ -1,5 +1,6 @@
 # Dart-Cms-Flutter
 这是一个使用flutter技术开发的Dart-Cms的安卓客户端
+> 已升级到最新的flutter SDK 2.2.0 
 
 ## 其他开源项目
 
@@ -18,7 +19,9 @@
     <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-2.png" />
     <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-3.png" />
     <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-4.png" />
-    <img src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/fijkplayer_skin-1.png" />
+    <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-5.png" />
+    <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-6.png" />
+    <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-7.png" />
 </p>
 
 ## 项目结构
@@ -26,27 +29,23 @@
 ``` bash
 ├─components                 // 公共的一些组件
 │
+├─fijkplayer_skin            // fijkplayer皮肤
+│
 ├─schema                     // json解析类，模型
 │
 ├─utils                      // 工具函数
-│   │
-│   ├──api.dart             // 所有的ajax请求
-│   │
-│   ├──cache.dart           // 关于app缓存的
-│   │
-│   ├──loading.dart         // loading封装
-│   │
-│   ├──config.dart          // 配置，请求地址，app名称，uniqueKey等
-│   │
-│   ├──request.dart         // dio的封装，网络请求
-│   │
-│   └──tools.js             // 工具方法
 │
-├─views                      // 所有的页面
+├─pages                      // 所有的页面（前端思维）
 │
 ├─main.dart                  // 主入口文件
 │
-├─router.dart                // 所有的路由配置
+├─widget                     // 一些小部件
+│
+├─service                    // getx 全局控制器
+│
+├─interface                  // 部分公用的接口
+│
+├─router                     // 路由系统
 ```
 
 ## 捐助一下失业的我

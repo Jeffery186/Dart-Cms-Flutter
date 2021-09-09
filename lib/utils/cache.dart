@@ -26,6 +26,7 @@ Future<double> _getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
     if (file is Directory) {
       final List<FileSystemEntity> children = file.listSync();
       double total = 0;
+      // ignore: unnecessary_null_comparison
       if (children != null)
         for (final FileSystemEntity child in children)
           total += await _getTotalSizeOfFilesInDir(child);
@@ -39,11 +40,12 @@ Future<double> _getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
 }
 
 ///格式化文件大小
-renderSize(double value) {
+String renderSize(double value) {
+  // ignore: unnecessary_null_comparison
   if (null == value) {
-    return 0;
+    return "0";
   }
-  List<String> unitArr = List()..add('B')..add('K')..add('M')..add('G');
+  List<String> unitArr = []..add('B')..add('K')..add('M')..add('G');
   int index = 0;
   while (value > 1024) {
     index++;
@@ -53,7 +55,7 @@ renderSize(double value) {
   return size + unitArr[index];
 }
 
-void clearCache({Function cb}) async {
+void clearCache({Function? cb}) async {
   //此处展示加载loading
   try {
     Directory tempDir = await getTemporaryDirectory();
@@ -71,7 +73,7 @@ void clearCache({Function cb}) async {
 }
 
 ///递归方式删除目录
-Future<Null> delDir(FileSystemEntity file) async {
+Future<void> delDir(FileSystemEntity file) async {
   try {
     if (file is Directory) {
       final List<FileSystemEntity> children = file.listSync();

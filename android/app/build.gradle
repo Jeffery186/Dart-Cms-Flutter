@@ -1,3 +1,4 @@
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -21,46 +22,40 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+// key文件位置，默认root磁盘根目录
+// def keystoreProperties = new Properties()
+// def keystorePropertiesFile = rootProject.file('key.properties')
+// if (keystorePropertiesFile.exists()) {
+//     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+// }
+// key文件位置，默认root磁盘根目录
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-// 后添加  开始
-//def keystoreProperties = new Properties()
-//def keystorePropertiesFile = rootProject.file('key.properties')
-//if (keystorePropertiesFile.exists()) {
-//    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-//}
-// 后添加  结束
-
 android {
+    compileSdkVersion 29
 
-    // 增加这块代码
+    // 打包发布key配置
     // signingConfigs {
-    //    release {
-    //        keyAlias keystoreProperties['keyAlias']
-    //        keyPassword keystoreProperties['keyPassword']
-    //        storeFile file(keystoreProperties['storeFile'])
-    //        storePassword keystoreProperties['storePassword']
-    //    }
+    //     release {
+    //         keyAlias keystoreProperties['keyAlias']
+    //         keyPassword keystoreProperties['keyPassword']
+    //         storeFile file(keystoreProperties['storeFile'])
+    //         storePassword keystoreProperties['storePassword']
+    //     }
     // }
-    // 增加这块代码
-
-    compileSdkVersion 28
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
+    // 打包发布key配置
 
     lintOptions {
+        // checkReleaseBuilds false
         disable 'InvalidPackage'
     }
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.dart_movie"
-        minSdkVersion 16
-        targetSdkVersion 28
+        applicationId "com.example.dart_cms_flutter"
+        minSdkVersion 19
+        targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -70,23 +65,21 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
 
-            
-//            signingConfig signingConfigs.release
-//
-//            minifyEnabled true
-//            useProguard true
-//
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            signingConfig signingConfigs.release
-            signingConfig signingConfigs.debug
+              // 打包放出注释 -----------
+              // minifyEnabled true
+              // useProguard true
+
+              // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+              // signingConfig signingConfigs.release
+              // 打包放出注释 -----------
+
+              signingConfig signingConfigs.debug
         }
     }
 }
 
+
 flutter {
     source '../..'
-}
-
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
