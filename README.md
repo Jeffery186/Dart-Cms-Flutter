@@ -21,7 +21,7 @@
     <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-4.png" />
     <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-5.png" />
     <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-6.png" />
-    <img width="380" src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-7.png" />
+    <img src="https://cdn.jsdelivr.net/gh/abcd498936590/pic@master/img/dart-cms-flutter-7.png" />
 </p>
 
 ## 项目结构
