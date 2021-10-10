@@ -154,7 +154,7 @@ class _VideoDetaillPageState extends State<VideoDetaillPage> {
   // 小字
   Widget _buildTextTip(String text) {
     return Text(
-      text,
+      text.isNotEmpty ? text : '暂无',
       style: TextStyle(
         color: Colors.black45,
       ),

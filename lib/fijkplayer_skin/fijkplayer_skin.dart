@@ -623,7 +623,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
   _onHorizontalDragStart(detills) {
     setState(() {
       updatePrevDx = detills.globalPosition.dx;
-      updatePosX = _currentPos.inSeconds;
+      updatePosX = _currentPos.inMilliseconds;
     });
   }
 
@@ -636,17 +636,28 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
     // + -, 不满足, 左右滑动合法滑动值，> 1
     if (isBefore && cdx - pdx < 1 || !isBefore && pdx - cdx < 1) return null;
 
-    int dragRange = isBefore ? updatePosX! + 1 : updatePosX! - 1;
+    // 计算手指滑动的比例
+    int newInterval = pdx - cdx;
+    double playerW = window.physicalSize.width;
+    int curIntervalAbs = newInterval.abs();
+    double movePropCheck = (curIntervalAbs / playerW) * 100;
+
+    // 计算进度条的比例
+    double durProgCheck = _duration.inMilliseconds.toDouble() / 100;
+    int checkTransfrom = (movePropCheck * durProgCheck).toInt();
+    int dragRange =
+        isBefore ? updatePosX! + checkTransfrom : updatePosX! - checkTransfrom;
 
     // 是否溢出 最大
-    int lastSecond = _duration.inSeconds;
-    if (dragRange >= _duration.inSeconds) {
+    int lastSecond = _duration.inMilliseconds;
+    if (dragRange >= _duration.inMilliseconds) {
       dragRange = lastSecond;
     }
     // 是否溢出 最小
     if (dragRange <= 0) {
       dragRange = 0;
     }
+
     //
     this.setState(() {
       _isHorizontalMove = true;
@@ -656,7 +667,7 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
       updatePrevDx = curDragDx;
       // 更新时间
       updatePosX = dragRange.toInt();
-      _dargPos = Duration(seconds: updatePosX!.toInt());
+      _dargPos = Duration(milliseconds: updatePosX!.toInt());
     });
   }
 
