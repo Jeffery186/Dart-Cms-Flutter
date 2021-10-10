@@ -202,6 +202,7 @@ class Header extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
+            SizedBox(height: 20),
             // 头像
             ClipOval(
               child: Container(
