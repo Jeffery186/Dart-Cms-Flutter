@@ -633,8 +633,6 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
     int cdx = curDragDx.toInt();
     int pdx = updatePrevDx!.toInt();
     bool isBefore = cdx > pdx;
-    // + -, 不满足, 左右滑动合法滑动值，> 1
-    if (isBefore && cdx - pdx < 1 || !isBefore && pdx - cdx < 1) return null;
 
     // 计算手指滑动的比例
     int newInterval = pdx - cdx;
