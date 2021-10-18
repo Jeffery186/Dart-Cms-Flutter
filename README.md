@@ -4,6 +4,7 @@
 
 ## 其他开源项目
 
+* [flutter_eyepetizer](https://github.com/abcd498936590/flutter_eyepetizer)  =>> Flutter + GetX仿开眼视频app
 * [Dart-Cms](https://github.com/abcd498936590/Dart-Cms)  =>> Dart-Cms完整项目
 * [Dart-Cms-Manage](https://github.com/abcd498936590/Dart-Cms-Manage)   =>> Dart-Cms后台管理系统页面部分
 * [Dart-Cms-Script](https://github.com/abcd498936590/Dart-Cms-Script)  =>> Dart-Cms插件教程，插件使用，插件开发
