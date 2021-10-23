@@ -38,8 +38,7 @@ class HttpUtils extends GetConnect {
     print("request初始化");
   }
 
-  // ignore: non_constant_identifier_names
-  Future<Response<dynamic>> x_get({
+  Future<Response<dynamic>> xGet({
     required String url,
     Map<String, String> params = const {},
     Map<String, String> query = const {},
@@ -48,8 +47,7 @@ class HttpUtils extends GetConnect {
     return get(url, query: query, headers: header);
   }
 
-  // ignore: non_constant_identifier_names
-  Future<Response<dynamic>> x_post({
+  Future<Response<dynamic>> xPost({
     required String url,
     Map<String, String> params = const {},
     Map<String, String> query = const {},

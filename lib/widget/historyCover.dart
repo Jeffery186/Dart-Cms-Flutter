@@ -1,8 +1,8 @@
+// ignore_for_file: non_constant_identifier_names, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:dart_cms_flutter/widget/imgState.dart';
 
 // 历史记录，收藏 封面
-// ignore: must_be_immutable
 class HistoryVideoCover extends StatelessWidget {
   late String videoTitle;
   late String videoImage;

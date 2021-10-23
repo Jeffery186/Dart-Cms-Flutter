@@ -26,8 +26,7 @@ Future<double> _getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
     if (file is Directory) {
       final List<FileSystemEntity> children = file.listSync();
       double total = 0;
-      // ignore: unnecessary_null_comparison
-      if (children != null)
+      if (children.length > 0)
         for (final FileSystemEntity child in children)
           total += await _getTotalSizeOfFilesInDir(child);
       return total;
@@ -41,11 +40,14 @@ Future<double> _getTotalSizeOfFilesInDir(final FileSystemEntity file) async {
 
 ///格式化文件大小
 String renderSize(double value) {
-  // ignore: unnecessary_null_comparison
-  if (null == value) {
-    return "0";
-  }
-  List<String> unitArr = []..add('B')..add('K')..add('M')..add('G');
+  // if (null == value) {
+  //   return "0";
+  // }
+  List<String> unitArr = []
+    ..add('B')
+    ..add('K')
+    ..add('M')
+    ..add('G');
   int index = 0;
   while (value > 1024) {
     index++;

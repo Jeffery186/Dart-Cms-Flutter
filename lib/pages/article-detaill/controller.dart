@@ -7,7 +7,7 @@ class ArticleDetaillViewStore extends GetxController with StateMixin {
   GetCurArticleDetill? artInfo;
 
   Future<GetCurArticleDetill> pullCurArticleDetaill(String aid) async {
-    Response res = await HttpUtils().x_get(url: "/app/getArtDetill/" + aid);
+    Response res = await HttpUtils().xGet(url: "/app/getArtDetill/" + aid);
     GetCurArticleDetill fmtBody = GetCurArticleDetill.fromJson(res.body);
     return fmtBody;
   }

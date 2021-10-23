@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names, must_call_super
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -16,7 +17,6 @@ import 'package:dart_cms_flutter/schema/get_video_search.dart';
 import 'package:dart_cms_flutter/utils/get_x_request.dart';
 
 // 搜索的封面
-// ignore: must_be_immutable
 class SearchVideoCover extends StatelessWidget {
   String videoImage;
   SearchVideoCover(this.videoImage, {Key? key}) : super(key: key);
@@ -42,7 +42,6 @@ class SearchVideoCover extends StatelessWidget {
 }
 
 // 单独视频按钮
-// ignore: must_be_immutable
 class MyVideoBtn extends VideoItem {
   String Id;
   String btnText;
@@ -103,7 +102,7 @@ class _VideoSearchPageState extends State<VideoSearchPage>
   bool? isFocus;
 
   Future<getSearchDatas> pullVideoSearch(int newPage) async {
-    Response res = await HttpUtils().x_get(
+    Response res = await HttpUtils().xGet(
       url: "/app/getSearchDatas",
       query: {
         "page": newPage.toString(),
@@ -254,7 +253,6 @@ class _VideoSearchPageState extends State<VideoSearchPage>
   }
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
     Widget body;
     // 焦点

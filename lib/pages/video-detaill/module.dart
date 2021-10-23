@@ -27,7 +27,6 @@ class PlayerShowConfig implements ShowConfigAbs {
   bool stateAuto = true;
 }
 
-// ignore: must_be_immutable
 class VideoDetaillPage extends StatefulWidget {
   VideoDetaillPage({Key? key}) : super(key: key);
 
@@ -46,8 +45,7 @@ class _VideoDetaillPageState extends State<VideoDetaillPage> {
   String curVideoShowTitle = "";
   // fijk
   final FijkPlayer player = FijkPlayer();
-  // ignore: non_constant_identifier_names
-  ShowConfigAbs v_cfg = PlayerShowConfig();
+  ShowConfigAbs vSkinCfg = PlayerShowConfig();
 
   String curPlayUrl = "";
 
@@ -133,9 +131,8 @@ class _VideoDetaillPageState extends State<VideoDetaillPage> {
 
   // 唤起分享
   Future<void> _shareCurVideo() async {
-    // ignore: unnecessary_brace_in_string_interps
     ShareExtend.share(
-        "${videoDetaill.videoInfo!.videoTitle} ${appName} ${hostUrl}", "text");
+        "${videoDetaill.videoInfo!.videoTitle} $appName $hostUrl", "text");
   }
 
   @override
@@ -313,23 +310,22 @@ class _VideoDetaillPageState extends State<VideoDetaillPage> {
     List playList,
     String sourceName,
     EdgeInsetsGeometry padding,
-    int row_id,
+    int rowId,
   ) {
-    // ignore: non_constant_identifier_names
-    return playList.asMap().keys.map((int col_id) {
+    return playList.asMap().keys.map((int coldId) {
       return Padding(
         padding: padding,
         child: MyButton(
-          title: playList[col_id].split('\$')[0],
-          color: playFocus["row_id"] == row_id && playFocus["col_id"] == col_id
+          title: playList[coldId].split('\$')[0],
+          color: playFocus["row_id"] == rowId && playFocus["col_id"] == coldId
               ? Colors.blue
               : Colors.orange[700],
           cb: () async {
-            List<String> curSource = playList[col_id].split('\$');
+            List<String> curSource = playList[coldId].split('\$');
             setState(() {
               // 存当前源所在的项
-              playFocus["row_id"] = row_id;
-              playFocus["col_id"] = col_id;
+              playFocus["row_id"] = rowId;
+              playFocus["col_id"] = coldId;
               // 存播放源
               curPlayUrl = curSource[1];
               // 存播放标题
@@ -341,8 +337,8 @@ class _VideoDetaillPageState extends State<VideoDetaillPage> {
               videoDetaill.videoInfo!,
               curSource[0],
               {
-                "row_id": row_id,
-                "col_id": col_id,
+                "row_id": rowId,
+                "col_id": coldId,
               },
             );
             // 设置播放源
@@ -356,7 +352,7 @@ class _VideoDetaillPageState extends State<VideoDetaillPage> {
 
   // 播放源按钮行
   List<Widget> _createPlayBox(BuildContext context) {
-    return videoDetaill.source!.asMap().keys.map((int row_id) {
+    return videoDetaill.source!.asMap().keys.map((int rowId) {
       return Container(
         color: Colors.white,
         child: Padding(
@@ -373,7 +369,7 @@ class _VideoDetaillPageState extends State<VideoDetaillPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         // 每一组源的名称
-                        videoDetaill.source![row_id]!.name!,
+                        videoDetaill.source![rowId]!.name!,
                         style: TextStyle(fontSize: 18, color: Colors.red),
                       ),
                     ),
@@ -396,13 +392,13 @@ class _VideoDetaillPageState extends State<VideoDetaillPage> {
                                   spacing: 0,
                                   runSpacing: 0,
                                   children: _createPlayBtns(
-                                    videoDetaill.source![row_id]!.list!,
-                                    videoDetaill.source![row_id]!.name!,
+                                    videoDetaill.source![rowId]!.list!,
+                                    videoDetaill.source![rowId]!.name!,
                                     EdgeInsets.only(
                                       left: 5,
                                       right: 5,
                                     ),
-                                    row_id,
+                                    rowId,
                                   ),
                                 ),
                               ),
@@ -418,10 +414,10 @@ class _VideoDetaillPageState extends State<VideoDetaillPage> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: _createPlayBtns(
-                    videoDetaill.source![row_id]!.list!,
-                    videoDetaill.source![row_id]!.name!,
+                    videoDetaill.source![rowId]!.list!,
+                    videoDetaill.source![rowId]!.name!,
                     EdgeInsets.all(5),
-                    row_id,
+                    rowId,
                   ),
                 ),
               ),
@@ -497,7 +493,7 @@ class _VideoDetaillPageState extends State<VideoDetaillPage> {
           texturePos: texturePos,
           pageContent: context,
           playerTitle: videoDetaill.videoInfo!.videoTitle!,
-          showConfig: v_cfg,
+          showConfig: vSkinCfg,
           curPlayUrl: curPlayUrl,
         );
       },

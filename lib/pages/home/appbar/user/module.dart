@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable, non_constant_identifier_names, invalid_use_of_protected_member
 import 'package:flutter/material.dart';
 import 'package:share_extend/share_extend.dart';
 import 'package:get/get.dart';
@@ -88,7 +89,6 @@ class RowBtn extends StatelessWidget {
 }
 
 // row 子项
-// ignore: must_be_immutable
 class HistoryRowItem extends StatelessWidget {
   String videoImage;
   String videoTitle;
@@ -144,7 +144,6 @@ class Header extends StatelessWidget {
 
     Widget _buildHistoryChild() {
       if (historyService.hisList.length > 0) {
-        // ignore: invalid_use_of_protected_member
         List<Widget> childList = historyService.hisList.value.map((item) {
           String videoImgUrl = item["videoImage"].contains("http")
               ? item["videoImage"]
@@ -300,7 +299,7 @@ class _MenuState extends State<Menu> {
   // 获取升级信息
   Future<void> _authUpdateInfo(context) async {
     showLoading(context);
-    await HttpUtils().x_get(url: '/app/appAuthUpgrade', query: {
+    await HttpUtils().xGet(url: '/app/appAuthUpgrade', query: {
       'appKey': appUniqueKey,
     }).whenComplete(() {
       hideLoading(context);

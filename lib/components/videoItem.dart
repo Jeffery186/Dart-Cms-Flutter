@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names, must_be_immutable
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,6 @@ abstract class VideoItemInterFace {
 }
 
 // 公共封面组件
-// ignore: must_be_immutable
 class VideoItem extends StatelessWidget implements VideoItemInterFace {
   @override
   String Id;
@@ -121,7 +121,7 @@ class VideoItem extends StatelessWidget implements VideoItemInterFace {
     VideoDetaill? fmtBody;
     showLoading(context);
     try {
-      Response res = await HttpUtils().x_get(
+      Response res = await HttpUtils().xGet(
         url: "/app/getDetillData/" + Id,
       );
       fmtBody = VideoDetaill.fromJson(res.body);
@@ -161,7 +161,6 @@ class VideoItem extends StatelessWidget implements VideoItemInterFace {
 }
 
 // 公共的封面 - 布局widget
-// ignore: must_be_immutable
 class PublicVideoCover extends StatelessWidget {
   String videoTitle;
   String videoImgUrl;

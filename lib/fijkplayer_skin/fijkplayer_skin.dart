@@ -1,3 +1,4 @@
+// ignore_for_file: camel_case_types
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
@@ -72,7 +73,6 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
 
   bool _lockStuff = lockStuff;
   bool _hideLockStuff = hideLockStuff;
-  bool _drawerState = false;
   Timer? _hideLockTimer;
 
   bool _isPlaying = false;
@@ -457,7 +457,6 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
   bool get wantKeepAlive => true;
 }
 
-// ignore: camel_case_types
 class _buildGestureDetector extends StatefulWidget {
   final FijkPlayer player;
   final Size viewSize;
@@ -484,7 +483,6 @@ class _buildGestureDetector extends StatefulWidget {
       _buildGestureDetectorState(this._hideStuff);
 }
 
-// ignore: camel_case_types
 class _buildGestureDetectorState extends State<_buildGestureDetector> {
   FijkPlayer get player => widget.player;
   ShowConfigAbs get showConfig => widget.showConfig;

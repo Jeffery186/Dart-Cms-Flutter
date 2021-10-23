@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 abstract class VideoGroupInterFace<T> {
   String? name;
   List<T?>? list;
@@ -5,7 +6,6 @@ abstract class VideoGroupInterFace<T> {
 }
 
 abstract class VideoGroupListChildInterFace {
-  // ignore: non_constant_identifier_names
   String? Id;
   String? videoTitle;
   String? director;

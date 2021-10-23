@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names, must_be_immutable, must_call_super
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:dart_cms_flutter/components/videoItem.dart';
@@ -128,7 +129,6 @@ class AppBarIndexView extends GetView<AppbarIndexViewStore> {
   }
 }
 
-// ignore: must_be_immutable
 class HomeAppBarTabView extends StatefulWidget {
   final int tabIdx;
   final String Id;
@@ -141,7 +141,6 @@ class HomeAppBarTabView extends StatefulWidget {
 
 class _HomeAppBarTabViewState extends State<HomeAppBarTabView>
     with AutomaticKeepAliveClientMixin {
-  // ignore: non_constant_identifier_names
   final int tabIdx;
   final String Id;
   bool? isInit;
@@ -155,7 +154,7 @@ class _HomeAppBarTabViewState extends State<HomeAppBarTabView>
   _HomeAppBarTabViewState(this.Id, this.tabIdx);
 
   Future<GetCurNavItemList> pullCurNavData() async {
-    Response res = await HttpUtils().x_get(
+    Response res = await HttpUtils().xGet(
       url: "/app/getCurNavItemList/" + Id,
     );
     GetCurNavItemList fmtBody = GetCurNavItemList.fromJson(res.body);
@@ -207,7 +206,6 @@ class _HomeAppBarTabViewState extends State<HomeAppBarTabView>
   }
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
     if (stateCode == 0) {
       return MyLoading(
@@ -272,7 +270,6 @@ class _HomeAppBarTabViewState extends State<HomeAppBarTabView>
   bool get wantKeepAlive => true;
 }
 
-// ignore: must_be_immutable
 class TypeGroup<T extends VideoGroupInterFace> extends StatelessWidget {
   List<T?>? navItem;
   TypeGroup({Key? key, this.navItem}) : super(key: key);
@@ -295,7 +292,6 @@ class TypeGroup<T extends VideoGroupInterFace> extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 class SwiperController extends StatefulWidget {
   List<GetCurNavItemListValueSwiperList?>? itemList;
   SwiperController({Key? key, required this.itemList}) : super(key: key);
@@ -345,7 +341,6 @@ class _SwiperControllerState extends State<SwiperController> {
   }
 }
 
-// ignore: must_be_immutable
 class SwiperItemCover extends StatelessWidget {
   String posterUrl;
   SwiperItemCover(this.posterUrl, {Key? key}) : super(key: key);

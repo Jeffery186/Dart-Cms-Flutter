@@ -9,7 +9,7 @@ class AppbarIndexViewStore extends GetxController
   RxList tabBarList = [].obs;
 
   Future<GetTypeList> pullHomeTypeList() async {
-    Response res = await HttpUtils().x_get(url: "/app/getTypeList");
+    Response res = await HttpUtils().xGet(url: "/app/getTypeList");
     GetTypeList fmtBody = GetTypeList.fromJson(res.body);
     return fmtBody;
   }

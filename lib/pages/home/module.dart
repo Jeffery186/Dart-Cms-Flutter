@@ -1,3 +1,4 @@
+// ignore_for_file: must_call_super
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class _HomeViewState extends State<HomeView>
   late BuildContext topContext;
 
   Future<AppLoadPoint> pullAppPoint() async {
-    Response res = await HttpUtils().x_get(url: "/app/appInitTipsInfo");
+    Response res = await HttpUtils().xGet(url: "/app/appInitTipsInfo");
     AppLoadPoint fmtBody = AppLoadPoint.fromJson(res.body);
     return fmtBody;
   }
@@ -103,7 +104,6 @@ class _HomeViewState extends State<HomeView>
   }
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
     topContext = context;
     return WillPopScope(

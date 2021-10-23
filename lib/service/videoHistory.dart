@@ -1,3 +1,4 @@
+// ignore_for_file: invalid_use_of_protected_member
 import 'package:get/get.dart';
 // utils
 import 'package:dart_cms_flutter/utils/storage.dart';
@@ -43,7 +44,6 @@ class HistoryService extends GetxService {
     // 插入新的
     hisList.insert(0, curVideoMap);
     // 存入
-    // ignore: invalid_use_of_protected_member
     return StorageUtil().setJSON('history', hisList.value);
   }
 

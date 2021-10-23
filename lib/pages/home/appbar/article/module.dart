@@ -1,3 +1,4 @@
+// ignore_for_file: must_call_super
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -33,7 +34,7 @@ class _AppBarArticleViewState extends State<AppBarArticleView>
   ScrollController _scrollController = ScrollController();
 
   Future<GetAllArtItemList> pullArticleList(int newPage) async {
-    Response res = await HttpUtils().x_get(
+    Response res = await HttpUtils().xGet(
       url: "/app/getAllArtItemList",
       query: {
         "page": newPage.toString(),
@@ -150,7 +151,6 @@ class _AppBarArticleViewState extends State<AppBarArticleView>
   }
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
     Widget body;
     // 0加载中 1加载成功 2空结果 3 失败

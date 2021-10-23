@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names, must_be_immutable, must_call_super
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -26,7 +27,6 @@ class SortFrom {
   SortFrom({required this.Id, required this.name, cb});
 }
 
-// ignore: must_be_immutable
 class TypeColButton extends StatelessWidget {
   final String text;
   final Color color;
@@ -119,7 +119,7 @@ class _AppBarVideoTypeViewState extends State<AppBarVideoTypeView>
   }
 
   Future<AllTypesDatas> _pullData(int newPage) async {
-    Response res = await HttpUtils().x_get(
+    Response res = await HttpUtils().xGet(
       url: "/app/getTypesDatas",
       query: _getQuery(newPage),
     );
@@ -433,7 +433,6 @@ class _AppBarVideoTypeViewState extends State<AppBarVideoTypeView>
   }
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
     Widget body;
     // 0加载中 1加载成功 2空结果 3 失败
